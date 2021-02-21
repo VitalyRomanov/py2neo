@@ -41,6 +41,8 @@ from py2neo.data import Node
 from py2neo.database import Graph
 from py2neo.matching import NodeMatch, NodeMatcher
 
+from importlib import import_module
+
 
 OUTGOING = 1
 UNDIRECTED = 0
@@ -120,7 +122,7 @@ def _resolve_class(model, current_module_name):
     module_name, _, class_name = model.rpartition(".")
     if not module_name:
         module_name = current_module_name
-    module = __import__(module_name, fromlist=".")
+    module = import_module(module_name)
     return getattr(module, class_name)
 
 
